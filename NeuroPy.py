@@ -67,12 +67,12 @@ class NeuroPy(object):
         print(platform)
         self.__port,self.__baudRate=port,baudRate
         self.__packetsReceived = 0
-    
+
     def __del__(self):
         if self.running == True:
             self.running = False
         self.srl.close()
-    
+
     #need stderr in python
     def eprint(*args, **kwargs):
         print(*args, file=sys.stderr, **kwargs)
@@ -84,7 +84,7 @@ class NeuroPy(object):
         self.__connected = True
         return # Only connect RF devices
         self.__srl.write(''.join([CONNECT, self.__devid.decode('hex')])) '''
-    
+
     def start(self):
         # Try to connect to serial port and start a separate thread
         # for data collection
@@ -121,7 +121,7 @@ class NeuroPy(object):
                 checksum = ~checksum & 0x000000ff
                 if checksum == int(srl.read(1).hex(), 16):
                     i = 0
-                
+
                     while i < payloadLength:
                         code = payload[i]
                         if (code == 'd0'):
@@ -209,194 +209,194 @@ class NeuroPy(object):
                         else:
                             pass
                         i = i + 1
-                              
-                              
+
+
     def stop(self):
         # Stops a running parser thread
         if self.running == True:
             self.running = False
             self.__srl.close()
-                        
+
     def setCallBack(self, variable_name, callback_function):
         """Setting callback:a call back can be associated with all the above variables so that a function is called when the variable is updated. Syntax: setCallBack("variable",callback_function)
             for eg. to set a callback for attention data the syntax will be setCallBack("attention",callback_function)"""
         self.callBacksDictionary[variable_name] = callback_function
-                              
+
     # setting getters and setters for all variables
     # packets received
     @property
     def packetsReceived(self):
         return self.__packetsReceived
-                        
+
     @property
     def bytesAvailable(self, srl):
         if self.running:
             return srl.inWaiting()
         else:
             return -1
-                              
+
     # attention
     @property
     def attention(self):
         "Get value for attention"
         return self.__attention
-                              
+
     @attention.setter
     def attention(self, value):
         self.__attention = value
         # if callback has been set, execute the function
         if "attention" in self.callBacksDictionary:
             self.callBacksDictionary["attention"](self.__attention)
-                              
+
     # meditation
     @property
     def meditation(self):
         "Get value for meditation"
         return self.__meditation
-                              
+
     @meditation.setter
     def meditation(self, value):
         self.__meditation = value
         # if callback has been set, execute the function
         if "meditation" in self.callBacksDictionary:
             self.callBacksDictionary["meditation"](self.__meditation)
-                        
+
     # rawValue
     @property
     def rawValue(self):
         "Get value for rawValue"
         return self.__rawValue
-                    
+
     @rawValue.setter
     def rawValue(self, value):
         self.__rawValue = value
         # if callback has been set, execute the function
         if "rawValue" in self.callBacksDictionary:
             self.callBacksDictionary["rawValue"](self.__rawValue)
-                              
+
     # delta
     @property
     def delta(self):
         "Get value for delta"
         return self.__delta
-                            
+
     @delta.setter
     def delta(self, value):
         self.__delta = value
         # if callback has been set, execute the function
         if "delta" in self.callBacksDictionary:
             self.callBacksDictionary["delta"](self.__delta)
-                              
+
     # theta
     @property
     def theta(self):
         "Get value for theta"
         return self.__theta
-                              
+
     @theta.setter
     def theta(self, value):
         self.__theta = value
         # if callback has been set, execute the function
         if "theta" in self.callBacksDictionary:
             self.callBacksDictionary["theta"](self.__theta)
-                        
+
     # lowAlpha
     @property
     def lowAlpha(self):
         "Get value for lowAlpha"
         return self.__lowAlpha
-                    
+
     @lowAlpha.setter
     def lowAlpha(self, value):
         self.__lowAlpha = value
         # if callback has been set, execute the function
         if "lowAlpha" in self.callBacksDictionary:
             self.callBacksDictionary["lowAlpha"](self.__lowAlpha)
-                            
+
     # highAlpha
     @property
     def highAlpha(self):
         "Get value for highAlpha"
         return self.__highAlpha
-            
+
     @highAlpha.setter
     def highAlpha(self, value):
         self.__highAlpha = value
         # if callback has been set, execute the function
         if "highAlpha" in self.callBacksDictionary:
             self.callBacksDictionary["highAlpha"](self.__highAlpha)
-                              
+
     # lowBeta
     @property
     def lowBeta(self):
         "Get value for lowBeta"
         return self.__lowBeta
-                    
+
     @lowBeta.setter
     def lowBeta(self, value):
         self.__lowBeta = value
         # if callback has been set, execute the function
         if "lowBeta" in self.callBacksDictionary:
             self.callBacksDictionary["lowBeta"](self.__lowBeta)
-                            
+
     # highBeta
     @property
     def highBeta(self):
         "Get value for highBeta"
         return self.__highBeta
-                        
+
     @highBeta.setter
     def highBeta(self, value):
         self.__highBeta = value
         # if callback has been set, execute the function
         if "highBeta" in self.callBacksDictionary:
             self.callBacksDictionary["highBeta"](self.__highBeta)
-                              
+
     # lowGamma
     @property
     def lowGamma(self):
         "Get value for lowGamma"
         return self.__lowGamma
-                              
+
     @lowGamma.setter
     def lowGamma(self, value):
         self.__lowGamma = value
         # if callback has been set, execute the function
         if "lowGamma" in self.callBacksDictionary:
             self.callBacksDictionary["lowGamma"](self.__lowGamma)
-                            
+
     # midGamma
     @property
     def midGamma(self):
         "Get value for midGamma"
         return self.__midGamma
-                              
+
     @midGamma.setter
     def midGamma(self, value):
         self.__midGamma = value
         # if callback has been set, execute the function
         if "midGamma" in self.callBacksDictionary:
             self.callBacksDictionary["midGamma"](self.__midGamma)
-                              
+
     # poorSignal
     @property
     def poorSignal(self):
         "Get value for poorSignal"
         return self.__poorSignal
-                    
+
     @poorSignal.setter
     def poorSignal(self, value):
         self.__poorSignal = value
         # if callback has been set, execute the function
         if "poorSignal" in self.callBacksDictionary:
             self.callBacksDictionary["poorSignal"](self.__poorSignal)
-                        
+
     # blinkStrength
     @property
     def blinkStrength(self):
         "Get value for blinkStrength"
         return self.__blinkStrength
-                              
+
     @blinkStrength.setter
     def blinkStrength(self, value):
         self.__blinkStrength = value
