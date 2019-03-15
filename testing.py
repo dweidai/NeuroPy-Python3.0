@@ -2,6 +2,7 @@ from NeuroPy.NeuroPy import NeuroPy
 import keyboard
 import serial
 import time
+import sys
 
 '''
     My machine is macOS Mojave Version 10.14.3
@@ -29,13 +30,14 @@ while True:
 
     try:
         if keyboard.is_pressed('q'):
+            headset.stop()
+            print(headset)
+            print("headset closed")
             break
         else:
             pass
     except:
         print("\t!!!!\nquit program\n\t!!!!!!\n")
-        break  # if user pressed a key other than the given key the loop will break
+        sys.exit(0)
 
-headset.stop()
-print(headset)
-print("headset closed")
+
