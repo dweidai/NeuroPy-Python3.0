@@ -28,7 +28,7 @@ while True:
     print("Meditation: ", med)
     time.sleep(0.4)
 
-    try:
+    try: #this did not work use Ctrl+C to exit program
         if keyboard.is_pressed('q'):
             headset.stop()
             print(headset)
